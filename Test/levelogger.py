@@ -27,18 +27,17 @@ ser = serial.Serial(
 
 ser.flushInput()
 if ser.isOpen():
+    print("Connection to Solinst Levelogger Successful! Enter CTRL+C to stop.")
     try:
         while True:
-            print("Connection to Solinst Levelogger Successful")
             input_command = input("Enter a command A-Z: ").upper()
             if len(input_command) == 1:
-                ser.write(solinst(command))
+                ser.write(solinst(input_command))
                 time.sleep(0.5)
                 if ser.in_waiting > 0:
                     #read serial bytes
                     block = ser.read(ser.in_waiting)
                     print(block)
-                    break
                 else:
                     print('Enter a single character to continue.')
                     continue
